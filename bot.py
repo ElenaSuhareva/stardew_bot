@@ -8,9 +8,12 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 load_dotenv()
 
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-YANDEX_API_KEY = os.getenv("YANDEX_API_KEY")
-YANDEX_FOLDER_ID = os.getenv("YANDEX_FOLDER_ID")
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN") or os.getenv("BOT_TOKEN") or os.getenv("TELEGRAM_BOT_TOKEN") or os.getenv("TOKEN")
+YANDEX_API_KEY = os.getenv("YANDEX_API_KEY") or os.getenv("YANDEX_API_KEY")  # оставляем как есть
+YANDEX_FOLDER_ID = os.getenv("YANDEX_FOLDER_ID") or os.getenv("YANDEX_FOLDER_ID")  # оставляем как есть
+
+if TELEGRAM_TOKEN is None:
+    raise ValueError("❌ TELEGRAM_TOKEN не найден! Проверь переменные окружения.")
 
 bot = Bot(token=TELEGRAM_TOKEN)
 dp = Dispatcher()
